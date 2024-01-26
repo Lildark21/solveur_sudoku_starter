@@ -15,7 +15,7 @@ class SudokuGrid implements GridInterface
     }
 
     public function __construct(array $data){
-        $this->$data = $data;
+        $this->grid = $data;
     }
     
     function get_data() {
