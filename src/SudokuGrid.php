@@ -15,17 +15,11 @@ class SudokuGrid implements GridInterface
     }
 
     public function __construct(array $data){
-        $this->grid = $data;
+        $this->data = $data;
     }
     
-    function get_data() {
-        return $this->data;
-    }
-    
-
-
     public function get(int $rowIndex, int $columnIndex): int{
-
+        
     }
 
     public function set(int $rowIndex, int $columnIndex, int $value): void{

@@ -26,7 +26,7 @@ final class SudokuGridTest extends TestCase
     public function testLoadFromFile(): void
     {
         $newGrid = SudokuGrid::loadFromFile(realpath(rtrim(__DIR__, '/') . '/../grids/full.json'));
-        $this->assertEquals($this->grid->data, $newGrid->data);
+        $this->assertEquals($this->grid->data, $newGrid->zzzzdata);
         $missingFileGrid = SudokuGrid::loadFromFile("a");
         $this->assertNull($missingFileGrid);
     }
