@@ -1,6 +1,8 @@
 <?php
 
 class SudokuGrid implements GridInterface
+
+
 {
     public static function loadFromFile($filepath): ?SudokuGrid{
         if(!file_exists($filepath)){
@@ -14,30 +16,34 @@ class SudokuGrid implements GridInterface
         return new SudokuGrid($grid);
     }
 
+    public $data ;
     public function __construct(array $data){
-        $this->grid = $data;
+        $this->data = $data;
     }
     
-    function get_data() {
-        return $this->data;
-    }
-    
-
 
     public function get(int $rowIndex, int $columnIndex): int{
-
+            return $this->data[$rowIndex][$columnIndex];
     }
 
     public function set(int $rowIndex, int $columnIndex, int $value): void{
+        $this->data[$rowIndex][$columnIndex]= $value;   
 
     }
 
     public function row(int $rowIndex): array{
-
+        if ($rowIndex < 0 || $rowIndex > 8) {
+            return [];
+        }
+    
+        return $this->data[$rowIndex];
     }
 
     public function column(int $columnIndex): array{
-
+        if ($columnIndex < 0 || $columnIndex > 8 ){
+            return[];
+        }
+        return $this-> data[$columnIndex];
     }
 
     public function square(int $squareIndex): array{
