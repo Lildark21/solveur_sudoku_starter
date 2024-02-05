@@ -46,28 +46,91 @@ class SudokuGrid implements GridInterface
         return $this-> data[$columnIndex];
     }
 
-    public function square(int $squareIndex): array{
+    public function square(int $squareIndex): array{        
+        if ($squareIndex<0 || $squareIndex>8 ){
+            return[];
+        }
+    $startRow = intdiv($squareIndex, 3) * 3;
+    $startCol = ($squareIndex % 3) * 3;
 
+    $block = [];
+    for ($i = 0; $i < 3; $i++) {
+        for ($j = 0; $j < 3; $j++) {
+            $block[] = $this->data[$startRow + $i][$startCol + $j];
+        }
+    }
+    return $block;
     }
 
     public function display(): string{
-
+        $display = "";
+        for($i=0;$i<9;$i++){
+            for($j=0;$j<9;$j++){
+                $display .= " " . $this->data[$i][$j];
+            }
+            $display .= PHP_EOL;
+        }
+    
+        return $display;
+    
     }
 
     public function isValueValidForPosition(int $rowIndex, int $columnIndex, int $value): bool{
 
+    if ($rowIndex < 0 || $rowIndex > 8 || $columnIndex < 0 || $columnIndex > 8) {
+        return false;
     }
+
+    if ($this->data[$rowIndex][$columnIndex] === $value) {
+        return false;
+    }
+
+    for ($col = 0; $col < 9; $col++) {
+        if ($this->data[$rowIndex][$col] === $value) {
+            return false;
+        }
+    }
+
+    for ($row = 0; $row < 9; $row++) {
+        if ($this->data[$row][$columnIndex] === $value) {
+            return false;
+        }
+    }
+    $startRow = intdiv($rowIndex, 3) * 3;
+    $startCol = intdiv($columnIndex, 3) * 3;
+
+    for ($i = 0; $i < 3; $i++) {
+        for ($j = 0; $j < 3; $j++) {
+            if ($this->data[$startRow + $i][$startCol + $j] === $value) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
     public function getNextRowColumn(int $rowIndex, int $columnIndex): array{
+        $columnIndex +=1;
+
+        if($columnIndex>8){
+            $columnIndex=0;
+            $rowIndex += 1;
+    
+    }
+    if ($rowIndex > 8) {
+        return [];
+    }
+    return [$rowIndex,$columnIndex];
 
     }
 
-    public function isValid(): bool{
 
+
+
+    public function isValid(): bool{
     }
 
     public function isFilled(): bool{
-
     }
 
 }
